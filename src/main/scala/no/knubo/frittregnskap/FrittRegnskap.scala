@@ -29,7 +29,7 @@ trait FrittRegnskap {
 
  def request: Request = :/(domainPrefix + ".frittregnskap.no") / "RegnskapServer" / "services"
 
- def apply[A](r: Request => Handler[A]) = Http(r(request))
+ def apply[A](r: Request => Handler[A]):A = Http(r(request))
 }
 
 
@@ -55,6 +55,6 @@ object Backup {
 
  def schema(r: Request) = r /"backup.php?action=schema_plain" as_str
 
- def data(table : String) = (r:Request) => (r / ("backup.php?action=dump_plain&table="+table) as_str)
+ def data(table : String) = (r:Request) => ((r / ("backup.php?action=dump_plain&table="+table) as_str))
 }
 
